@@ -179,7 +179,7 @@
     font-size: 17px;
     line-height: 1.55;
     padding: 14px 0;
-    border-top: 1px solid rgba(199, 91, 61, 0.2);
+    border-top: 1px solid var(--rust);
   }
   .questions li:first-child { border-top: none; }
   .questions li::before {
@@ -304,15 +304,6 @@
     color: var(--accent);
   }
 
-  .pullquote blockquote::before {
-    content: "";
-    display: block;
-    width: 44px;
-    height: 4px;
-    background: var(--accent);
-    margin-bottom: 20px;
-  }
-
   /* Per-section pull quote accents (terracotta is the default) */
   .pullquote--lavender { --accent: var(--lavender-deep); }
   .pullquote--blue     { --accent: var(--powder-deep); }
@@ -380,7 +371,7 @@
   .rule {
     border: none;
     height: 1px;
-    background: rgba(139, 58, 30, 0.2);
+    background: var(--rust);
     margin: clamp(48px, 6vw, 72px) 0;
   }
 
