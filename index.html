@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Essays — Annika Orne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EC;
+    --cream: #F3EAD1;
+    --oat: #E4D6B3;
+    --stone: #B8A98A;
+    --terracotta: #C75B3D;
+    --clay: #E08A5F;
+    --rust: #8B3A1E;
+    --cocoa: #3D241A;
+    --coffee: #5E3B28;
+    --ink: #1A1310;
+
+    --display: 'Bricolage Grotesque', Georgia, serif;
+    --body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'DM Mono', ui-monospace, monospace;
+
+    --prose: 720px;
+    --wide: 1000px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--cocoa);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: var(--terracotta); color: var(--paper); }
+
+  .page {
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 48px) clamp(64px, 10vw, 120px);
+  }
+
+  .masthead {
+    border-top: 1px solid var(--rust);
+    border-bottom: 1px solid var(--rust);
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    margin-bottom: clamp(64px, 10vw, 120px);
+  }
+
+  .masthead .name {
+    color: var(--cocoa);
+  }
+
+  .masthead .meta {
+    color: var(--coffee);
+  }
+
+  .hero {
+    max-width: var(--prose);
+    margin-bottom: clamp(64px, 10vw, 96px);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 36px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(48px, 8vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--cocoa);
+    margin: 0 0 28px;
+  }
+
+  .hero p {
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--coffee);
+    margin: 0;
+    max-width: 560px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rust);
+    margin-bottom: 0;
+  }
+
+  .essays {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: var(--wide);
+  }
+
+  .essay {
+    border-bottom: 1px solid var(--rust);
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(24px, 5vw, 48px);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease;
+  }
+
+  .essays li:last-child .essay {
+    border-bottom: none;
+  }
+
+  .essay-text {
+    flex: 0 1 var(--prose);
+    min-width: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .essay:hover .essay-text {
+    transform: translateX(8px);
+  }
+
+  .essay-image {
+    flex-shrink: 0;
+    width: clamp(120px, 16vw, 160px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--cream);
+    border-radius: 2px;
+  }
+
+  .essay-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    transition: transform 0.4s ease;
+  }
+
+  .essay:hover .essay-image img {
+    transform: scale(1.03);
+  }
+
+  .essay-meta {
+    display: flex;
+    gap: 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 14px;
+  }
+
+  .essay-meta .num {
+    color: var(--rust);
+  }
+
+  .essay h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--cocoa);
+    margin: 0 0 14px;
+    transition: color 0.2s ease;
+  }
+
+  .essay:hover h2 {
+    color: var(--rust);
+  }
+
+  .essay p {
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--coffee);
+    margin: 0;
+    max-width: 560px;
+  }
+
+  .footer {
+    margin-top: clamp(80px, 12vw, 120px);
+    padding-top: 18px;
+    border-top: 1px solid var(--rust);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    .masthead {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .essay-meta {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .essay {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .essay-text {
+      flex: 1 1 auto;
+      order: 2;
+    }
+    .essay-image {
+      order: 1;
+    }
+    .essay:hover .essay-text {
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="masthead">
+      <span class="name">Annika Orne</span>
+      <span class="meta">SonderMind · Product Design</span>
+    </div>
+
+    <div class="hero">
+      <h1>Essays on the principles and practice of design</h1>
+      <p>A collection of musings on the questions I&rsquo;ve been turning over in my own work.</p>
+    </div>
+
+    <p class="section-label">Essays</p>
+
+    <ul class="essays">
+
+      <li>
+        <a href="essays/honesty-in-design/" class="essay">
+          <div class="essay-text">
+            <div class="essay-meta">
+              <span class="num">No. 01</span>
+              <span>April 2026</span>
+              <span>9 min read</span>
+            </div>
+            <h2>Honesty as a Design Principle</h2>
+            <p>From Ruskin to Rams: what it means for design to tell the truth, and the four forms honesty takes &mdash; material, structural, intentional, and authorial.</p>
+          </div>
+          <div class="essay-image">
+            <img src="essays/honesty-in-design/images/04-marble-concrete.png" alt="Detail of raw béton brut concrete">
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="footer">
+      <span>Annika Orne · 2026</span>
+      <span>Design Essays</span>
+    </div>
+
+  </div>
+</body>
+</html>

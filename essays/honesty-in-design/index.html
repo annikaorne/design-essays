@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Honesty as a Design Principle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=DM+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EC;
+    --cream: #F3EAD1;
+    --oat: #E4D6B3;
+    --stone: #B8A98A;
+    --terracotta: #C75B3D;
+    --clay: #E08A5F;
+    --rust: #8B3A1E;
+    --cocoa: #3D241A;
+    --coffee: #5E3B28;
+    --ink: #1A1310;
+    --sage: #8A9467;
+    --powder: #B8CBD4;
+    --powder-deep: #6E94A7;
+    --lavender: #B8A2C7;
+    --lavender-deep: #A184B5;
+    --mustard: #D6A24E;
+    --magenta: #8B2E55;
+
+    --display: "Bricolage Grotesque", ui-serif, Georgia, serif;
+    --body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --prose: 720px;
+    --wide: 1000px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--rust);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.625;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--terracotta); color: var(--paper); }
+
+  .page {
+    width: 100%;
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 80px) clamp(20px, 4vw, 40px) 120px;
+  }
+
+  .prose {
+    max-width: var(--prose);
+    margin: 0 auto;
+  }
+
+  .wide {
+    max-width: var(--wide);
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  .masthead {
+    border-top: 1px solid var(--rust);
+    border-bottom: 1px solid var(--rust);
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(60px, 10vw, 120px);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .masthead .brand,
+  .masthead .meta { color: var(--coffee); }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--rust);
+    gap: 14px;
+  }
+
+  .back-link .arrow {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .back-link:hover .arrow {
+    transform: translateX(-3px);
+  }
+
+  .title-block { margin-bottom: clamp(48px, 7vw, 88px); }
+
+  .kicker {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(52px, 10vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--cocoa);
+    margin: 0 0 36px 0;
+  }
+
+  .byline {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  .byline .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--terracotta);
+    display: inline-block;
+  }
+
+  .questions {
+    background: var(--cream);
+    border-left: 4px solid var(--terracotta);
+    padding: clamp(24px, 4vw, 36px) clamp(24px, 4vw, 40px);
+    margin: clamp(40px, 6vw, 64px) 0;
+    border-radius: 2px;
+  }
+
+  .questions .eyebrow { margin-bottom: 16px; color: var(--terracotta); }
+  .questions ul { list-style: none; padding: 0; margin: 0; }
+  .questions li {
+    color: var(--cocoa);
+    font-size: 17px;
+    line-height: 1.55;
+    padding: 14px 0;
+    border-top: 1px solid rgba(199, 91, 61, 0.2);
+  }
+  .questions li:first-child { border-top: none; }
+  .questions li::before {
+    content: "→";
+    display: inline-block;
+    color: var(--terracotta);
+    margin-right: 12px;
+    font-family: var(--mono);
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--cocoa);
+    margin: clamp(72px, 10vw, 120px) 0 clamp(24px, 3vw, 32px);
+  }
+
+  h2 .num {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 18px;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--cocoa);
+    margin: 48px 0 14px;
+  }
+
+  p {
+    color: var(--cocoa);
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0 0 24px;
+  }
+
+  .lead {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 1.55;
+    color: var(--rust);
+    margin: 0 0 40px;
+  }
+
+  .closing-block {
+    padding: clamp(40px, 6vw, 72px) 0;
+    border-top: 1px solid var(--rust);
+    margin: clamp(48px, 7vw, 80px) 0;
+  }
+
+  .closing-block .eyebrow {
+    color: var(--terracotta);
+    display: block;
+    margin-bottom: clamp(20px, 3vw, 28px);
+  }
+
+  .closing {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(19px, 2.2vw, 22px);
+    line-height: 1.55;
+    color: var(--rust);
+    margin: 0;
+  }
+
+  .closing strong {
+    display: block;
+    margin-top: 24px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--cocoa);
+  }
+
+  p strong { font-weight: 600; color: var(--rust); }
+  p em { font-style: italic; }
+
+  a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: var(--rust); }
+
+  .dropcap::first-letter {
+    font-family: var(--display);
+    font-weight: 700;
+    float: left;
+    font-size: clamp(72px, 10vw, 104px);
+    line-height: 0.82;
+    padding: 8px 14px 0 0;
+    color: var(--terracotta);
+  }
+
+  .pullquote {
+    --accent: var(--terracotta);
+    margin: clamp(48px, 7vw, 72px) 0;
+    padding: clamp(28px, 4vw, 40px) 0;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    text-align: left;
+  }
+
+  .pullquote blockquote {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
+
+  .pullquote blockquote::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 4px;
+    background: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  /* Per-section pull quote accents (terracotta is the default) */
+  .pullquote--lavender { --accent: var(--lavender-deep); }
+  .pullquote--blue     { --accent: var(--powder-deep); }
+  .pullquote--sage     { --accent: var(--sage); }
+
+  .pullquote cite {
+    display: block;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--coffee);
+  }
+
+  figure.placeholder {
+    margin: clamp(40px, 6vw, 64px) 0;
+    width: 100%;
+    max-width: var(--wide);
+  }
+
+  .prose > figure.placeholder {
+    width: 100vw;
+    max-width: var(--wide);
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 1080px) {
+    .prose > figure.placeholder {
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+    }
+  }
+
+  .placeholder .frame {
+    position: relative;
+    width: 100%;
+    background: var(--cream);
+    border-radius: 2px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .placeholder .frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  .rule {
+    border: none;
+    height: 1px;
+    background: rgba(139, 58, 30, 0.2);
+    margin: clamp(48px, 6vw, 72px) 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--rust);
+    padding-top: 24px;
+    margin-top: clamp(60px, 10vw, 120px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    p { font-size: 16px; }
+    .questions li { font-size: 16px; }
+    .dropcap::first-letter {
+      font-size: 72px;
+      padding: 6px 10px 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    width: 0%;
+    background: var(--terracotta);
+    transition: width 0.08s linear;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" aria-hidden="true">
+  <div class="progress-bar__fill" id="progressFill"></div>
+</div>
+
+<main class="page">
+
+  <header class="masthead wide">
+    <a href="../../" class="back-link">
+      <span class="arrow">&larr;</span>
+      <span>Back</span>
+    </a>
+    <span class="eyebrow meta">Essay · No. 01</span>
+  </header>
+
+  <section class="title-block prose">
+    <div class="kicker">A piece on craft &amp; practice</div>
+    <h1>Honesty as a Design Principle</h1>
+    <div class="byline">
+      <span>Annika Orne</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>April 2026</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>9 min read</span>
+    </div>
+  </section>
+
+  <section class="prose">
+    <aside class="questions">
+      <div class="eyebrow">Two questions to hold as you read</div>
+      <ul>
+        <li>Pick one or two aspects of the SonderMind user experience (e.g., billing, activation, care journey). Consider: How might we apply honest design to these areas?</li>
+        <li>How can we bring more honesty into our practice as a team and a tech org?</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="prose">
+    <h2><span class="num">01 — Framing</span>What is honest design?</h2>
+
+    <p>Honesty is an old idea in design. It predates the word "design" in its modern sense. The Arts and Crafts movement of the late nineteenth century defined itself against industrial production that dressed cheap materials in the appearance of expensive ones. By the turn of the twentieth century, the concern had been formalized into a principle. Louis Sullivan, writing in 1896, held that a building's form should follow its function, meaning that a tall building should look tall and express the structural logic that made it so. Adolf Loos, writing in 1910, argued that ornament applied to disguise a material's nature was a form of moral failure. Half a century later, Dieter Rams distilled the idea into his sixth principle of good design:</p>
+
+    <div class="pullquote">
+      <blockquote>"Good design is honest. It does not make a product more innovative, powerful or valuable than it really is. It does not attempt to manipulate the consumer with promises that cannot be kept."</blockquote>
+      <cite>— Dieter Rams, Principle 6 of <em>Ten Principles for Good Design</em></cite>
+    </div>
+
+    <p>Across these formulations, honesty in design names the same underlying commitment: that a designed object should align with what it is. Its surface should correspond to its substance. Its claims should correspond to its capabilities. Its form should express, rather than disguise, the logic of its construction and the intention behind its making.</p>
+
+    <p>What makes the principle difficult to hold is that design is always working against pressures that reward the appearance of honesty over its practice. The rhetoric of minimalism is easy to borrow. The signals of rigor can be reproduced without the reasoning that originally generated them. Honesty in design is therefore also a form of self-scrutiny: a readiness to ask whether the work is what it claims to be, or whether it has drifted into performing the idea.</p>
+  </section>
+
+  <hr class="rule wide" />
+
+  <section class="prose">
+    <h2><span class="num">02 — True to the material</span>Material honesty</h2>
+
+    <p>Material honesty is the most tangible and historically grounded form of design honesty — and in some ways the most debated, because it's the one that most directly collides with craft, aesthetics, and the nature of making things.</p>
+
+    <h3>The core idea</h3>
+
+    <p>Materials have inherent properties — weight, texture, structural behavior, aging patterns — and material honesty says design should work with those properties rather than against or around them. Wood should flex and grain. Concrete should be heavy and rough. Steel should read as tensile and precise. When a material is treated or finished to disguise what it is, something is being concealed — and the argument is that this concealment is a kind of lie.</p>
+
+    <h3>Where it comes from</h3>
+
+    <p>The principle has deep roots. John Ruskin and the Arts and Crafts movement were reacting to industrial production that used cheap materials dressed up as expensive ones — machine-stamped ornament mimicking hand carving, cast iron painted to look like stone. They saw this as morally corrupt, not just aesthetically bad. The dishonesty of the material was connected to a broader dishonesty about labor and value.</p>
+
+    <p>Modernism picked this up and radicalized it. Adolf Loos declared ornament a crime. The Bauhaus pushed for forms that expressed how things were made. Le Corbusier left concrete raw — <em>béton brut</em> — because finishing it would have been a lie about what it was. The material became the aesthetic, not a substrate for decoration.</p>
+
+    <div class="pullquote pullquote--sage">
+      <blockquote>"Freedom from ornament is a sign of spiritual strength."</blockquote>
+      <cite>— Adolf Loos, <em>Ornament and Crime</em>, 1910</cite>
+    </div>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/04-marble-concrete.png" alt="Faux-marble painted wood panels on the left; raw béton brut concrete on the right" />
+      </div>
+      <figcaption>Left: faux-marble painted panels — cheap material dressed as luxurious stone. Right: <em>béton brut</em> — concrete left raw and unfinished.</figcaption>
+    </figure>
+
+    <h3>Honest vs. literal</h3>
+
+    <p>The interesting tension is between material honesty and material literalism. Strict literalism would say: never finish, never treat, never alter a material's natural appearance. But that quickly becomes untenable. Wood is sealed to prevent rot — is that dishonest? Steel is coated to prevent corrosion. Concrete is polished. These treatments serve the material and the object. The honest version of material thinking isn't "never alter" but rather "don't misrepresent." A sealed wood surface that still reads as wood is honest. A wood surface printed with a marble pattern is not.</p>
+
+    <h3>Digital materials</h3>
+
+    <p>Material honesty gets philosophically interesting in digital and screen-based design. Early interface design leaned heavily on skeuomorphism — interfaces that mimicked physical materials, with leather textures, stitching, fake wood grain, glossy plastic buttons that cast shadows as if lit from above. This was material dishonesty in a direct sense: the screen was pretending to be something it wasn't.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/05-ios.png" alt="iOS 6 skeuomorphic Notes app on the left; iOS 7 flat Notes app on the right" />
+      </div>
+      <figcaption>Side-by-side: iOS 6 skeuomorphic Notes app vs. iOS 7 flat Notes app.</figcaption>
+    </figure>
+
+    <p>The flat design movement was partly a reaction to this — an argument that the honest material of a screen is light and pixels, not simulated leather. But flat design created its own problems, stripping away affordances that helped users understand what was interactive. The honest material turned out to be harder to use. This is a recurring problem with material honesty: the literal truth of the material isn't always the most useful or humane expression of it.</p>
+  </section>
+
+  <hr class="rule wide" />
+
+  <section class="prose">
+    <h2><span class="num">03 — Form follows fabrication</span>Structural honesty</h2>
+
+    <p>Structural honesty is about the relationship between how something is built and how it appears — whether the logic of construction is legible in the final form, or whether it's hidden, disguised, or contradicted by the surface.</p>
+
+    <h3>The core idea</h3>
+
+    <p>A structurally honest design allows you to read, or at least sense, how it holds together. The forces at work — compression, tension, load, span — are expressed rather than concealed. The joints, connections, and systems that make something function are not treated as problems to be covered up but as potential sources of form and meaning. Structure isn't just engineering underneath design; it is design.</p>
+
+    <h3>Architecture as the primary site</h3>
+
+    <p>Architecture is where structural honesty has been most explicitly theorized and most visibly practiced. Viollet-le-Duc, the 19th century French architect and theorist, argued that Gothic cathedrals were the supreme example of structural honesty — every element of the form, the pointed arch, the flying buttress, the ribbed vault, was a direct expression of how the building stood up. Nothing was decorative in the pure sense; ornament and structure were the same thing.</p>
+
+    <p>The modernists carried this forward. The Pompidou Centre took the principle to an extreme — structure, circulation, and services all pulled to the exterior and color-coded, leaving the interior completely open. It's the most literal possible statement of structural honesty, and it's also polarizing, because legibility at that scale tips into spectacle. Louis Kahn made a philosophy out of distinguishing "served" and "servant" spaces, letting the mechanical and structural systems have their own legible presence in the building.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/07-pompidou.png" alt="Exterior of the Pompidou Centre showing color-coded exposed systems" />
+      </div>
+      <figcaption>Exterior of the Pompidou Centre showing color-coded exposed systems.</figcaption>
+    </figure>
+
+    <p>But the most famous case shows how easily the principle can be performed rather than practiced. Mies van der Rohe's Seagram Building is widely read as a defining statement of structural honesty in 20th-century architecture, but the bronze I-beams running up the facade are not structural. They are applied over fireproofed structural steel for the sake of preserving the <em>look</em> of an exposed frame that building codes no longer permitted. The building most often held up as an icon of structural honesty is, on close inspection, a performance of it.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/06-seagram.png" alt="Seagram Building facade wide view and close-up of non-structural bronze I-beams" />
+      </div>
+      <figcaption>Seagram Building — wide view and facade close-up showing the non-structural bronze I-beams.</figcaption>
+    </figure>
+
+    <h3>Furniture and objects</h3>
+
+    <p>In furniture and product design, structural honesty often shows up as exposed joinery. A through-tenon that visibly passes through a leg, a dovetail joint left visible at a drawer corner, a bolt and nut left proud of a surface — these choices say: here is how this is held together, and we're not embarrassed by it. Shaker furniture is the canonical example, where the construction logic and the aesthetic are completely unified. Nothing is hidden because nothing needs to be.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/08-shaker.png" alt="Stacked Shaker oval boxes on the left; close-up of dovetail joinery on a cherry drawer on the right" />
+      </div>
+      <figcaption>Shaker oval boxes and dovetail joinery detail — construction logic and aesthetic completely unified.</figcaption>
+    </figure>
+
+    <p>Louis Kahn took this ethic to its philosophical extreme. For Kahn, designing honestly meant asking the material what it wanted to be — treating its inherent properties not as constraints to be worked around but as intentions to be followed.</p>
+
+    <div class="pullquote">
+      <blockquote>"You say to brick, 'What do you want, brick?' Brick says to you, 'I like an arch.'"</blockquote>
+      <cite>— Louis Kahn</cite>
+    </div>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/10-kahn.png" alt="Louis Kahn, Indian Institute of Management, Ahmedabad — brick arches" />
+      </div>
+      <figcaption>Louis Kahn, Indian Institute of Management, Ahmedabad, 1974.</figcaption>
+    </figure>
+
+    <h3>Graphic and typographic structure</h3>
+
+    <p>In two-dimensional design, structural honesty translates to the underlying systems that organize the work. The Swiss International Style made the grid not just a tool but a visible principle — layouts that let you feel the underlying structure even when the grid lines themselves weren't printed. There's a kind of integrity in work where the organizing logic is coherent and present, versus work that uses structure arbitrarily or hides the absence of structure behind visual noise.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/09-brockmann.png" alt="Josef Müller-Brockmann Beethoven concert poster alongside the same poster with its underlying grid and modular construction overlaid in red" />
+      </div>
+      <figcaption>Josef Müller-Brockmann — <em>Beethoven</em> concert poster shown with its underlying grid and modular construction overlaid.</figcaption>
+    </figure>
+
+    <h3>The dishonest structure</h3>
+
+    <p>Structural dishonesty takes several forms. The most common is the false front — a facade that implies a structural logic the building behind it doesn't have. Victorian commercial buildings often had elaborate stone fronts that read as load-bearing masonry while the actual structure was iron frame. The face was a performance of solidity with no structural role.</p>
+
+    <p>In product design, the equivalent is a housing that implies robustness through visual mass or material suggestion while concealing fragility inside. Or an interface that presents a clean, simple surface while the underlying system is chaotic — where the apparent simplicity is achieved by hiding complexity from the user rather than actually resolving it.</p>
+
+    <p>In graphic design, structural dishonesty is work that borrows the visual language of systematic thinking — grids, hierarchies, typographic rigor — without the underlying logic. The structure is costume.</p>
+
+    <h3>Structure as narrative</h3>
+
+    <p>There's a deeper dimension to structural honesty that goes beyond construction. It's about whether the logic of a design — the reasoning behind decisions — is coherent and present in the work. A design that results from clear thinking tends to have a kind of structural integrity you can feel even without knowing the thinking behind it. A design that was rationalized after the fact, or that papers over unresolved contradictions, tends to feel structurally dishonest in this broader sense — the joints don't quite fit, the hierarchy doesn't quite hold, something is being covered that didn't get resolved. The surface looks fine; the structure underneath doesn't add up.</p>
+  </section>
+
+  <hr class="rule wide" />
+
+  <section class="prose">
+    <h2><span class="num">04 — Promise and delivery</span>Intentional honesty</h2>
+
+    <p>Intentional honesty is about alignment between what a design claims to do and what it actually does. It's the question of whether the work is in service of its stated purpose — or whether the stated purpose is a cover for something else.</p>
+
+    <h3>The Rams principle</h3>
+
+    <p>When Dieter Rams said "good design is honest," he meant it literally: a product should not overstate its capabilities, its value, or its innovation. A simple radio shouldn't look like a piece of advanced technology it isn't. A cheap material shouldn't be styled to imply luxury. The design should accurately represent what the thing is and does. This sounds simple but cuts against enormous commercial pressure to make things appear more than they are.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/03-braun.png" alt="Braun T3 pocket radio on the left; Braun SK 4 record player on the right" />
+      </div>
+      <figcaption>Left: Braun T3 pocket radio by Dieter Rams, 1958. Right: Braun SK 4 "Snow White's Coffin" record player by Dieter Rams and Hans Gugelot, 1956. Products that accurately represent what they are and do, without overstating value or innovation.</figcaption>
+    </figure>
+
+    <h3>Purpose drift</h3>
+
+    <p>Intentional honesty breaks down when the actual purpose of a design quietly diverges from the stated one. A health app might say it's designed to support wellbeing, but if its engagement mechanics are optimized for retention metrics above all else, the real design intent is retention — not health. The interface is lying, not in any individual element, but in the overall claim it makes about what it's for. This kind of drift often happens gradually, through accumulated small decisions that each seem reasonable in isolation.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/11-intentional.svg" alt="Diagram showing a stated purpose line being pulled downward through accumulated small decisions into an actual intent" />
+      </div>
+    </figure>
+
+    <h3>Feature honesty</h3>
+
+    <p>A related failure mode is designing features that exist to be announced rather than used. A product roadmap gets padded with capabilities that signal ambition or respond to competitive pressure, but weren't designed with real use cases in mind. The feature is technically there — so the claim isn't false — but the design intent behind it was never genuinely about the user. Intentional honesty would require asking: do we actually believe people need this, or are we building it for another reason?</p>
+
+    <div class="pullquote pullquote--blue">
+      <blockquote>"Do we actually believe people need this, or are we building it for another reason?"</blockquote>
+    </div>
+
+    <h3>The brief as contract</h3>
+
+    <p>Intentional honesty also applies to how designers engage with the brief. A brief frames a problem, and it's easy to accept that framing uncritically — to design a solution to the stated problem without asking whether the stated problem is the real one. An honest designer pushes on the brief: is this actually what users need? Is this the right intervention point? Sometimes the most intentionally honest move is to say the problem as defined isn't the problem worth solving.</p>
+
+    <h3>Honest toward whom?</h3>
+
+    <p>There's a relational dimension easy to miss: intentional honesty isn't neutral. The designer and the user sit in a power asymmetry, and the user usually can't see behind the surface. When the business's interests and the user's interests align, honest design serves both. When they don't, intentional honesty becomes a question of whose interests the design is actually honest toward — and that's a choice the designer is making, whether or not they frame it as one.</p>
+
+    <h3>Where it creates friction</h3>
+
+    <p>The difficulty is that intentional honesty often requires saying uncomfortable things — to clients, to stakeholders, to your own team. It means not dressing up a compromise as a considered decision, not presenting a constrained output as if it were an ideal one, and not building things you don't believe in without at least naming that tension. That friction is the cost of the honesty, but the alternative — design that pretends to serve purposes it doesn't — erodes trust over time.</p>
+  </section>
+
+  <hr class="rule wide" />
+
+  <section class="prose">
+    <h2><span class="num">05 — Intent vs. performance</span>Authorial honesty</h2>
+
+    <p>Authorial honesty in design is fundamentally about the relationship between the designer's intent and the work itself — whether the decisions being made are driven by genuine reasoning or by the performance of reasoning.</p>
+
+    <h3>Solving a real problem vs. performing problem-solving</h3>
+
+    <p>A lot of design work, especially in professional settings, can drift into theater. Decks get made, frameworks get applied, the design process gets documented beautifully — but the underlying question of whether the work is actually solving something real gets lost. Authorial honesty asks: do you believe in what you're making? Is the problem framing true, or is it a narrative constructed to justify a solution that was already decided?</p>
+
+    <p>This extends to the design process itself. A process can be honest — genuinely exploratory, with visible iteration and acknowledged dead-ends — or performative, presented as a clean narrative assembled after the fact. The cleaner the story, the more worth asking whether the work actually looked like that.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/12-authorial.svg" alt="Side-by-side comparison: The Real Process shown as a tangled path with dead ends leading to a hard-won conclusion, versus Design Theater shown as a clean arrow leading to a perfect outcome" />
+      </div>
+    </figure>
+
+    <h3>The designer's voice vs. borrowed signals</h3>
+
+    <p>Design has its own version of the "anxiety of influence." It's easy to make work that looks like good design — that borrows the aesthetic vocabulary of Dieter Rams, or Swiss typography, or whatever the current moment's version of rigor looks like — without the underlying thinking that originally generated those choices. Authorial honesty is the difference between minimalism as a genuine conclusion and minimalism as a costume.</p>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/01-hofmann-huber.png" alt="Max Huber Monza 1948 poster on the left; Armin Hofmann Giselle 1959 poster on the right" />
+      </div>
+      <figcaption>Left: Max Huber — <em>Monza</em> racing poster, 1948. Right: Armin Hofmann — <em>Giselle</em> poster, 1959. The Swiss canon: one kinetic, one stark — both often imitated on the surface without the underlying thinking.</figcaption>
+    </figure>
+
+    <figure class="placeholder">
+      <div class="frame">
+        <img src="images/02-ruder.png" alt="Emil Ruder Typographie book cover and interior spread" />
+      </div>
+      <figcaption>Emil Ruder — typographic compositions from <em>Typographie</em>, 1967. Swiss typography at its most systematic.</figcaption>
+    </figure>
+
+    <h3>Constraint honesty</h3>
+
+    <p>Sometimes designers present work as if it were unconstrained when it wasn't — as if the outcome were the best possible answer rather than the best answer given real limits of time, stakeholder pressure, technical debt, or scope. There's something dishonest about that framing. Acknowledging constraints isn't weakness; it's accuracy. The work is what it is, made under conditions that shaped it.</p>
+
+    <p>A close relative is epistemic honesty — being clear about what's validated, what's judgment, and what's assumption. Conflating those categories flatters the work but erodes trust in it, especially under later scrutiny.</p>
+
+    <h3>Advocacy and conviction</h3>
+
+    <p>Authorial honesty also has a professional dimension. When you present work, are you advocating for what you actually believe is right, or are you presenting what you think the room wants to see? Designers often develop a kind of learned shapeshifting — reading the audience and adjusting — which is a real skill, but can erode your sense of what you actually think. The honest designer knows the difference between genuine openness to feedback and pre-emptive capitulation.</p>
+
+    <div class="pullquote pullquote--lavender">
+      <blockquote>"Are you advocating for what you actually believe is right, or are you presenting what you think the room wants to see?"</blockquote>
+    </div>
+
+    <h3>Where it gets complicated</h3>
+
+    <p>Design is inherently a service discipline — you're solving someone else's problem, within their constraints, for their users. So "authorial honesty" can't mean self-expression for its own sake. The honest version is more like: being truthful about what the work is doing, what tradeoffs were made, what you believe and why, even when that's uncomfortable. It's less about having a signature style and more about not bullshitting — yourself or anyone else — about what the work is and why it exists.</p>
+  </section>
+
+  <section class="prose">
+    <div class="closing-block">
+      <span class="eyebrow">The underlying question</span>
+      <p class="closing">Honesty in design is not a single principle but a set of related commitments — to materials, to structure, to purpose, and to authorship — that collectively ask the same underlying question: <strong>Is the design telling the truth?</strong></p>
+    </div>
+  </section>
+
+  <section class="prose">
+    <aside class="questions">
+      <div class="eyebrow">Back to the two questions</div>
+      <ul>
+        <li>Pick one or two aspects of the SonderMind user experience (e.g., billing, activation, care journey). Consider: How might we apply honest design to these areas?</li>
+        <li>How can we bring more honesty into our practice as a team and a tech org?</li>
+      </ul>
+    </aside>
+  </section>
+
+  <footer class="wide">
+    <span>SonderMind Design</span>
+    <span>Essay · No. 01</span>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    var fill = document.getElementById('progressFill');
+    if (!fill) return;
+    var ticking = false;
+    function update() {
+      var doc = document.documentElement;
+      var scrollTop = window.scrollY || doc.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+</body>
+</html>

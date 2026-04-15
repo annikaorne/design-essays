@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Vercel
+.vercel
