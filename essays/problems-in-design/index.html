@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Problems Worth Solving</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=DM+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EC;
+    --cream: #F3EAD1;
+    --oat: #E4D6B3;
+    --stone: #B8A98A;
+    --terracotta: #C75B3D;
+    --clay: #E08A5F;
+    --rust: #8B3A1E;
+    --cocoa: #3D241A;
+    --coffee: #5E3B28;
+    --ink: #1A1310;
+    --sage: #8A9467;
+    --powder: #B8CBD4;
+    --powder-deep: #6E94A7;
+    --lavender: #B8A2C7;
+    --lavender-deep: #A184B5;
+    --mustard: #D6A24E;
+    --magenta: #8B2E55;
+
+    --display: "Bricolage Grotesque", ui-serif, Georgia, serif;
+    --body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --prose: 720px;
+    --wide: 1000px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--rust);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.625;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--terracotta); color: var(--paper); }
+
+  .page {
+    width: 100%;
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 80px) clamp(20px, 4vw, 40px) 120px;
+  }
+
+  .prose {
+    max-width: var(--prose);
+    margin: 0 auto;
+  }
+
+  .wide {
+    max-width: var(--wide);
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  .masthead {
+    border-top: 1px solid var(--rust);
+    border-bottom: 1px solid var(--rust);
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(60px, 10vw, 120px);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .masthead .brand,
+  .masthead .meta { color: var(--coffee); }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coffee);
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--rust);
+    gap: 14px;
+  }
+
+  .back-link .arrow {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .back-link:hover .arrow {
+    transform: translateX(-3px);
+  }
+
+  .title-block { margin-bottom: clamp(48px, 7vw, 88px); }
+
+  .kicker {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(52px, 10vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--cocoa);
+    margin: 0 0 36px 0;
+  }
+
+  .byline {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  .byline .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--terracotta);
+    display: inline-block;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--cocoa);
+    margin: clamp(72px, 10vw, 120px) 0 clamp(24px, 3vw, 32px);
+  }
+
+  h2 .num {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 18px;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--cocoa);
+    margin: 48px 0 14px;
+  }
+
+  p {
+    color: var(--cocoa);
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0 0 24px;
+  }
+
+  .lead {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 1.55;
+    color: var(--rust);
+    margin: 0 0 40px;
+  }
+
+  .closing-block {
+    padding: clamp(40px, 6vw, 72px) 0;
+    border-top: 1px solid var(--rust);
+    margin: clamp(48px, 7vw, 80px) 0;
+  }
+
+  .closing-block .eyebrow {
+    color: var(--terracotta);
+    display: block;
+    margin-bottom: clamp(20px, 3vw, 28px);
+  }
+
+  .closing {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(19px, 2.2vw, 22px);
+    line-height: 1.55;
+    color: var(--rust);
+    margin: 0;
+  }
+
+  .closing strong {
+    display: block;
+    margin-top: 24px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--cocoa);
+  }
+
+  p strong { font-weight: 600; color: var(--rust); }
+  p em { font-style: italic; }
+
+  a { color: var(--terracotta); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: var(--rust); }
+
+  .dropcap::first-letter {
+    font-family: var(--display);
+    font-weight: 700;
+    float: left;
+    font-size: clamp(72px, 10vw, 104px);
+    line-height: 0.82;
+    padding: 8px 14px 0 0;
+    color: var(--terracotta);
+  }
+
+  .pullquote {
+    --accent: var(--terracotta);
+    margin: clamp(48px, 7vw, 72px) 0;
+    padding: clamp(28px, 4vw, 40px) 0;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    text-align: left;
+  }
+
+  .pullquote blockquote {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
+
+  .pullquote--lavender { --accent: var(--lavender-deep); }
+  .pullquote--blue     { --accent: var(--powder-deep); }
+  .pullquote--sage     { --accent: var(--sage); }
+  .pullquote--mustard  { --accent: var(--mustard); }
+
+  .pullquote cite {
+    display: block;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--coffee);
+  }
+
+  .pullquote-exchange {
+    --accent: var(--terracotta);
+    margin: clamp(48px, 7vw, 72px) 0;
+    padding: clamp(28px, 4vw, 40px) 0;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .pullquote-exchange .line {
+    font-family: var(--display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+
+  .pullquote-exchange .line:last-of-type { margin-bottom: 0; }
+
+  .pullquote-exchange .q {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--coffee);
+  }
+
+  .pullquote-exchange .a {
+    font-size: clamp(28px, 4.5vw, 44px);
+    color: var(--accent);
+  }
+
+  .pullquote-exchange cite {
+    display: block;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--coffee);
+  }
+
+  .rule {
+    border: none;
+    height: 1px;
+    background: var(--rust);
+    margin: clamp(48px, 6vw, 72px) 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--rust);
+    padding-top: 24px;
+    margin-top: clamp(60px, 10vw, 120px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coffee);
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    p { font-size: 16px; }
+    .dropcap::first-letter {
+      font-size: 72px;
+      padding: 6px 10px 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    width: 0%;
+    background: var(--terracotta);
+    transition: width 0.08s linear;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" aria-hidden="true">
+  <div class="progress-bar__fill" id="progressFill"></div>
+</div>
+
+<main class="page">
+
+  <header class="masthead wide">
+    <a href="../../" class="back-link">
+      <span class="arrow">&larr;</span>
+      <span>Back</span>
+    </a>
+    <span class="eyebrow meta">Essay &middot; No. 02</span>
+  </header>
+
+  <section class="title-block prose">
+    <div class="kicker">A piece on craft &amp; practice</div>
+    <h1>Problems Worth Solving</h1>
+    <div class="byline">
+      <span>Annika Orne</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>April 2026</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>12 min read</span>
+    </div>
+  </section>
+
+  <!-- ─── OPENING ─── -->
+
+  <section class="prose">
+
+    <p>In 1969, a French curator named Madame L'Amic was preparing an exhibition called <em>Qu'est-ce que le design?</em> for the Mus&eacute;e des Arts D&eacute;coratifs in Paris. She sent Charles Eames a questionnaire. One of her questions asked: "What are the boundaries of design?" Eames answered with a question of his own:</p>
+
+    <div class="pullquote-exchange">
+      <p class="line a">"What are the boundaries of problems?"</p>
+      <cite>&mdash; Charles Eames, Design Q&amp;A questionnaire, 1969</cite>
+    </div>
+
+    <p>From the 1950s until his death in 2002, Achille Castiglioni collected what he called <em>anonymous objects</em> in his Milan studio: hardware-store hinges, industrial containers, a barber's chair. These were tools and vessels whose designers were unknown, but whose forms had persisted for decades without revision. He showed them to every visitor alongside his own work. They were evidence of something: problems so precisely fitted that the solution had outlived its author and its era.</p>
+
+  </section>
+
+  <hr class="rule wide" />
+
+  <!-- ─── ONE: DURABILITY ─── -->
+
+  <section class="prose">
+    <h2><span class="num">01 &mdash; Timely vs. Timeless</span>Durability</h2>
+
+    <p class="">Design problems divide into the timely and the timeless. Timely problems are contingent on a set of conditions and dissolve when those conditions change. Timeless problems recur across periods and cultures independently, outlasting the materials, technologies, and traditions that shift and emerge over time.</p>
+
+    <h3>Problems in space</h3>
+
+    <p>Christopher Alexander opened <em>The Timeless Way of Building</em> with a claim that certain arrangements in the built environment recur across centuries and cultures because they answer human needs that have not moved:</p>
+
+    <div class="pullquote pullquote--sage">
+      <blockquote>"There is one timeless way of building. It is thousands of years old, and the same today as it has always been."</blockquote>
+      <cite>&mdash; Christopher Alexander, <em>The Timeless Way of Building</em>, 1979</cite>
+    </div>
+
+    <p>Alexander and his collaborators spent years cataloging these recurrences in <em>A Pattern Language</em>. Alexander's pattern #159, "Light on Two Sides of Every Room," observes that a room lit from only one direction flattens psychologically; the eye and the body want cross-light. "Intimacy Gradient" describes the way a well-designed home moves from public threshold to private interior in a sequence that mirrors social expectation. "Alcoves" names the persistent human desire for a sheltered spot within a larger space, a place that is part of a room but also apart from it.</p>
+
+    <p>The patterns recur not because people happened to build this way in a particular era, but because the body and the social life it supports have a persistent grammar. A room with light on two sides feels alive because of how human vision works, not because of any convention. An alcove satisfies because of how the body relates to enclosure. The source of the pattern's persistence is biological and social, not stylistic.</p>
+
+    <h3>Problems in motion</h3>
+
+    <p>Naoto Fukasawa arrives at the same territory from a different angle. Where Alexander looks at recurring situations in space, Fukasawa looks at recurring gestures of the body.</p>
+
+    <div class="pullquote pullquote--blue">
+      <blockquote>"Finding ideas in people's spontaneous behavior and realizing these ideas in design is what Without Thought is about."</blockquote>
+      <cite>&mdash; Naoto Fukasawa, on the Without Thought workshop series, 1999&ndash;2019</cite>
+    </div>
+
+    <p>The MUJI wall-mounted CD player is the canonical example. It hangs on the wall like a ventilation fan. To start it, you pull a cord. The gesture references the pull-cord of a ceiling fan, something the hand already knows from a different context. The object fits into existing behavior rather than asking the user to learn a new one. Fukasawa called this <strong>"design dissolving in behavior"</strong>: the designed object disappears into a gesture the body was already prepared to make.</p>
+
+
+  </section>
+
+  <hr class="rule wide" />
+
+  <!-- ─── TWO: ALTITUDE ─── -->
+
+  <section class="prose">
+    <h2><span class="num">02 &mdash; High enough to last, low enough to make</span>Altitude</h2>
+
+    <p class="">If durability is about finding the right problem, altitude is about stating it at the right level of abstraction.</p>
+
+    <p>If a problem is too abstract, it becomes unworkable: <em>help people feel clean</em> gives the designer nothing to make. If a problem is too narrow, it constrains the solution space to incremental improvement. The useful altitude sits between these extremes, specific enough to act on and general enough to _____.</p>
+
+    <div style="background: #F2A0B1; color: #3D241A; padding: 16px 20px; border-radius: 6px; font-family: var(--mono); font-size: 14px; line-height: 1.5; margin: 0 0 24px;">
+      <strong>Note to self:</strong> Come back to this. I want to really think about how to define distinct altitudes for problems compared to timely/timeless. Right now, they're blurring together a bit. Maybe it's not a good distinction?
+    </div>
+
+    <h3>The Braun shavers</h3>
+
+    <p>Dieter Rams and the Braun design team offer a worked example of altitude held steady across decades. The problem their shavers answer could be stated: <em>let a person shave at home quickly, without harming themselves</em>. That statement has stayed at the right altitude since the Sixtant SM31 in 1962. Motors improved. Foils got thinner. Materials changed. But the problem underneath did not move.</p>
+
+    <p>Rams's first principle bears on this directly:</p>
+
+    <div class="pullquote">
+      <blockquote>"Innovative design always develops in tandem with innovative technology, and can never be an end in itself."</blockquote>
+      <cite>&mdash; Dieter Rams, Principle 1 of <em>Ten Principles for Good Design</em></cite>
+    </div>
+
+    <p>Read alongside his seventh principle:</p>
+
+    <div class="pullquote pullquote--lavender">
+      <blockquote>"Good design is long-lasting. It avoids being fashionable and therefore never appears antiquated."</blockquote>
+      <cite>&mdash; Dieter Rams, Principle 7 of <em>Ten Principles for Good Design</em></cite>
+    </div>
+
+    <p>Together they imply a division of labor between the problem and the solution. The solution is permitted, even required, to evolve with its substrate. New motors, new materials, new manufacturing processes. But the problem is what the designer holds steady. The altitude of the problem statement is what allows the solution to change without losing coherence. When the problem is stated at the right height, iteration across years feels like refinement rather than reinvention.</p>
+
+    <h3>Altitude as an ethical question</h3>
+
+    <p>Altitude is not only a craft question. Victor Papanek opened <em>Design for the Real World</em> with one of the most famous lines in design writing:</p>
+
+    <div class="pullquote pullquote--sage">
+      <blockquote>"There are professions more harmful than industrial design, but only a very few of them."</blockquote>
+      <cite>&mdash; Victor Papanek, <em>Design for the Real World</em>, 1971</cite>
+    </div>
+
+    <p>The provocation is sharp, but the argument behind it is about altitude. Papanek was unsparing about designers working at altitudes chosen by trivial briefs: styling exercises for people who already had everything, while the problems that actually shaped most human lives went unaddressed. His claim was that the altitude at which a designer chooses to state the problem reflects what they believe is worth doing at all. A designer who frames their work as <em>make this product look more premium</em> has chosen an altitude. A designer who frames it as <em>help people in resource-constrained settings access clean water</em> has chosen a different one. Both are real problems. The altitude says something about values.</p>
+
+    <p>This does not mean every designer must work on humanitarian problems. It means the choice of altitude is never neutral. The level at which you state the problem determines which solutions are visible to you, which constraints you accept, and whose needs you center. Altitude is not just about craft. It is about what the work is for.</p>
+
+  </section>
+
+  <hr class="rule wide" />
+
+  <!-- ─── THREE: PROCESS ─── -->
+
+  <section class="prose">
+    <h2><span class="num">03 &mdash; Iteration as discovery</span>Process</h2>
+
+    <p class="">Durability gives the designer a problem worth returning to. Altitude gives it a form that can survive changing conditions. But neither explains how the problem becomes clear. That is the work of process, and specifically of iteration.</p>
+
+    <p>Iteration and timeless problems go hand in hand. A commitment to a problem that outlasts any single solution is what lets iteration accumulate rather than churn. Each pass sharpens the understanding of the problem rather than replacing it.</p>
+
+    <h3>Re-Design: seeing the familiar again</h3>
+
+    <p>In 2000, Kenya Hara curated an exhibition called <em>Re-Design: The Daily Products of the 21st Century</em>. He invited thirty-two creators to rework everyday objects. Shigeru Ban redesigned a toilet paper roll as a square tube that sits flat, doesn't roll off surfaces, and uses less material. Naoto Fukasawa redesigned a tea bag so the string held the tag against the rim of the cup. Kengo Kuma made a roach trap. Kaoru Mende reimagined matches.</p>
+
+    <p>The project's premise was simple but generative: redesigning the familiar forces the designer to re-encounter the problem that sits beneath it.</p>
+
+    <div class="pullquote pullquote--blue">
+      <blockquote>"A means by which to correct and renew our feelings about the essence of design, hidden within the fascinating environment of an object that is so overly familiar to us that we can no longer see it."</blockquote>
+      <cite>&mdash; Kenya Hara, <em>Re-Design</em> catalog, 2000</cite>
+    </div>
+
+    <p>These objects had already been iterated on by the world for decades or centuries. The toilet paper roll, the tea bag, the match: each had arrived at a form so settled it had become invisible. Hara's move was to make the problem visible again by reopening the solution. The redesigns were not improvements in the conventional sense. Some were less practical than the originals. What they accomplished was to surface the logic that had been buried under familiarity, to make legible the problem that the everyday object had solved so thoroughly it no longer appeared to be solving anything.</p>
+
+    <h3>Ex-formation</h3>
+
+    <p>Hara's related concept of <em>ex-formation</em> names this more precisely. Where information adds what we know, ex-formation subtracts what we assume, returning the problem to a state where it can be seen again.</p>
+
+    <div class="pullquote pullquote--mustard">
+      <blockquote>"What moves people's hearts, in every case, is the unknown. Things that people already know don't excite them."</blockquote>
+      <cite>&mdash; Kenya Hara, <em>Ex-formation</em>, 2015</cite>
+    </div>
+
+    <p>Ex-formation is the deliberate practice of unknowing: stripping away accumulated familiarity so the problem can return to consciousness. This is the opposite of expertise as accumulation. It is expertise as clearing. The designer who has spent years with a problem is not the one who knows the most about it, but the one who can still see it.</p>
+
+    <h3>Wrong solutions as discovery</h3>
+
+    <p>This reframes what iteration actually does. Wrong solutions are not failures on the way to a right one. They are how the problem itself becomes legible. Each attempt that misses reveals something about the shape of what it missed. The square toilet paper roll is "wrong" in the sense that it will probably not replace the round one, but it makes visible the set of assumptions the round one rests on: that a roll must be round, that dispensing must involve rotation, that the form is given rather than chosen.</p>
+
+    <div class="pullquote">
+      <blockquote>"The essence of design lies in the process of discovering a problem shared by many people and trying to solve it."</blockquote>
+      <cite>&mdash; Kenya Hara, <em>Designing Design</em>, 2007</cite>
+    </div>
+
+    <p>The key word is <em>discovering</em>. Not receiving, not being briefed on, not defining in a workshop. Discovering. The problem is out there, in how people live and what they need, and the designer's job is to find it. Iteration is the finder. But it only works when the designer is holding the problem steady across iterations. Otherwise iteration is a sequence of answers to different questions, and what accumulates is volume, not understanding.</p>
+
+  </section>
+
+  <hr class="rule wide" />
+
+  <!-- ─── CLOSING ─── -->
+
+  <section class="prose">
+    <h2><span class="num">Coda</span>The iPod, seen three ways</h2>
+
+    <p>The iPod is useful here because it is recent enough to remember and distant enough to see clearly.</p>
+
+    <p><strong>Durability.</strong> The problem the iPod answered was not new. People walked with Walkmen before iPods, with transistor radios before that. Carrying one's music while moving through the world is a problem as old as portable instruments. The technology was new. The desire was not.</p>
+
+    <p><strong>Altitude.</strong> The consumer-facing framing, <em>1,000 songs in your pocket</em>, was pitched high enough to describe a desire and low enough to be specific. It worked because it named a recognizable frustration (carrying a library, not a playlist) without prescribing the mechanism. But the artifact itself encoded a particular storage technology, the hard drive, whose days were already numbered. The framing outlasted the implementation.</p>
+
+    <p><strong>Process.</strong> Apple iterated on the iPod across many forms for years: the Mini, the Nano, the Shuffle, the Touch. Each was a different answer to the same problem. When the substrate moved, when flash memory and cellular networks made a dedicated music player unnecessary, the artifact was absorbed into the iPhone. The problem survived. The object did not.</p>
+
+  </section>
+
+  <section class="prose">
+    <div class="closing-block">
+      <span class="eyebrow">The one question</span>
+      <p class="closing">The object and the problem are two different things. The object is what gets made. The problem is what gets found. One has a lifespan. The other may not. Before the next thing is made, there is only one question worth answering: <strong>Is this the problem, or is this the solution I already had in mind?</strong></p>
+    </div>
+  </section>
+
+  <footer class="wide">
+    <span>SonderMind Design</span>
+    <span>Essay &middot; No. 02</span>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    var fill = document.getElementById('progressFill');
+    if (!fill) return;
+    var ticking = false;
+    function update() {
+      var doc = document.documentElement;
+      var scrollTop = window.scrollY || doc.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+</body>
+</html>
